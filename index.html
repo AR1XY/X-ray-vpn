@@ -154,6 +154,7 @@
         .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 10px; }
         .feature-item p { font-size: 0.85rem; color: var(--text-gray); }
 
+        /* Обновленный футер-блок */
         .footer-links {
             background: var(--card-bg);
             padding: 25px;
@@ -164,7 +165,10 @@
             border: 1px solid #2a313e;
         }
 
-        .link-item { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: 600; }
+        .link-item { display: block; color: white; text-decoration: none; margin: 15px 0; font-weight: 600; transition: 0.2s; }
+        .link-item:hover { color: var(--accent-color); }
+        
+        .link-config { color: var(--accent-color); border-top: 1px solid #2a313e; padding-top: 15px; margin-top: 15px; }
 
         footer { padding: 30px; color: #4b5563; font-size: 0.75rem; }
     </style>
@@ -200,19 +204,11 @@
             <div class="feature-grid">
                 <div class="feature-item">
                     <h3>⚡ Скорость без границ</h3>
-                    <p>Прямое подключение к серверам без ограничений пропускной способности. Идеально для 4K и игр.</p>
+                    <p>Прямое подключение к серверам без ограничений пропускной способности.</p>
                 </div>
                 <div class="feature-item">
                     <h3>🔒 Полная приватность</h3>
-                    <p>Мы используем Xray Core, который маскирует ваш трафик под обычный веб-серфинг.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>🛠️ Умный обход DPI</h3>
-                    <p>Встроенные инструменты фрагментации пакетов позволяют обходить даже самые сложные блокировки.</p>
-                </div>
-                <div class="feature-item">
-                    <h3>💻 Минимум настроек</h3>
-                    <p>Вам не нужно быть программистом. Распаковали, запустили и вы уже в сети.</p>
+                    <p>Мы используем Xray Core, который маскирует трафик под обычный веб-серфинг.</p>
                 </div>
             </div>
         </div>
@@ -220,6 +216,7 @@
         <div class="footer-links">
             <a href="http://t.me/bypassrtp" class="link-item" target="_blank">📢 Наш Telegram канал</a>
             <a href="https://t.me/rtpvpnAdmin" class="link-item" target="_blank">👨‍💻 Создатель: @rtpvpnAdmin</a>
+            <a href="https://t.me/freeinternet_byMygalaru" class="link-item link-config" target="_blank">🔑 Получить конфигурации</a>
         </div>
     </section>
 
