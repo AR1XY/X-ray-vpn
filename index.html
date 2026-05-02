@@ -54,11 +54,13 @@
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
+        /* Каскадное появление */
         .window-card:nth-child(1) { animation-delay: 0.1s; }
-        .window-card:nth-child(2) { animation-delay: 0.3s; }
-        .window-card:nth-child(3) { animation-delay: 0.5s; }
-        .window-card:nth-child(4) { animation-delay: 0.7s; }
-        .window-card:nth-child(5) { animation-delay: 0.9s; }
+        .window-card:nth-child(2) { animation-delay: 0.2s; }
+        .window-card:nth-child(3) { animation-delay: 0.3s; }
+        .window-card:nth-child(4) { animation-delay: 0.4s; }
+        .window-card:nth-child(5) { animation-delay: 0.5s; }
+        .window-card:nth-child(6) { animation-delay: 0.6s; }
         
         .window-card:hover { border-color: rgba(0, 212, 255, 0.3); }
 
@@ -100,6 +102,17 @@
         }
         .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .feature-item:hover h3 { animation: titlePulse 1.5s infinite ease-in-out; }
+
+        /* Стили отзывов */
+        .review-msg {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-color);
+        }
+        .review-user { font-weight: 800; color: var(--accent-color); font-size: 0.9rem; margin-bottom: 4px; display: block; }
+        .review-text { color: white; font-size: 0.9rem; line-height: 1.4; }
 
         .contact-link { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; margin: 10px 0; font-weight: 600; transition: color 0.2s; }
         .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
@@ -143,8 +156,26 @@
     </div>
 
     <div class="window-card">
+        <h2 style="margin-bottom: 20px; text-align: center;">Отзывы</h2>
+        
+        <div class="review-msg">
+            <span class="review-user">AR1XY</span>
+            <p class="review-text">Очень хороший впн,стабильный пока что лучше чем хапп</p>
+        </div>
+
+        <div class="review-msg">
+            <span class="review-user">Xgkare</span>
+            <p class="review-text">как тест норм</p>
+        </div>
+
+        <div class="review-msg">
+            <span class="review-user">Timur</span>
+            <p class="review-text">Приложение топ, интерфейс интуитивно понятный, имеются куча настроек</p>
+        </div>
+    </div>
+
+    <div class="window-card">
         <h2 style="margin-bottom: 15px; text-align: center;">Поддержка</h2>
-        <p style="color: var(--text-gray); text-align: center; font-size: 0.8rem; margin-bottom: 15px;">Помоги проекту выжить и стать лучше</p>
         <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn btn-help">ЗАДОНАТИТЬ</a>
     </div>
 
@@ -163,11 +194,9 @@
     <footer>&copy; 2026 RTP VPN | Powered by Xray Core</footer>
 
     <script>
-        // Функция проверки с последующим переходом
         function startScan() {
             const btn = document.getElementById('zipBtn');
             const originalText = btn.innerText;
-            
             btn.innerText = 'Проверка...';
             btn.style.borderColor = '#00d4ff';
             
