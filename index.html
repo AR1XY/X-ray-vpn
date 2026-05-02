@@ -14,9 +14,10 @@
             --text-gray: #9ca3af;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Анимации при заходе */
+        @keyframes windowFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes titlePulse {
@@ -47,43 +48,37 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             margin-bottom: 20px;
-            animation: fadeInUp 0.6s ease-out forwards;
             opacity: 0;
+            animation: windowFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
+
+        .window-card:nth-child(1) { animation-delay: 0.1s; }
+        .window-card:nth-child(2) { animation-delay: 0.3s; }
+        .window-card:nth-child(3) { animation-delay: 0.5s; }
+        .window-card:nth-child(4) { animation-delay: 0.7s; }
+        .window-card:nth-child(5) { animation-delay: 0.9s; }
         
-        .window-card:hover { 
-            border-color: rgba(0, 212, 255, 0.3); 
-        }
+        .window-card:hover { border-color: rgba(0, 212, 255, 0.3); }
 
         .header-top { font-size: 24px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 5px; text-align: center; }
         .header-sub { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-align: center; }
         .header-sub span { color: var(--accent-color); }
 
         .logo-img {
-            width: 150px; height: 150px;
-            border-radius: 20px;
-            margin: 0 auto 20px;
-            display: block;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-            border: 1px solid #333;
-            cursor: pointer;
+            width: 150px; height: 150px; border-radius: 20px; margin: 0 auto 20px; display: block;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); border: 1px solid #333; cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .logo-img:hover { 
-            transform: scale(1.08) rotate(2deg); 
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
-        }
+        .logo-img:hover { transform: scale(1.08) rotate(2deg); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
 
         .client-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
 
         .btn {
-            display: block; width: 100%; padding: 16px;
-            border-radius: 12px; font-weight: 700; text-transform: uppercase;
-            text-decoration: none; text-align: center; 
-            transition: all 0.3s ease;
-            cursor: pointer; border: none; font-family: 'Inter', sans-serif;
+            display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 700;
+            text-transform: uppercase; text-decoration: none; text-align: center; 
+            transition: all 0.3s ease; cursor: pointer; border: none; font-family: 'Inter', sans-serif;
         }
 
         .btn-zip { background: none; color: white; border: 2px dashed #4b5563; margin-bottom: 15px; }
@@ -93,51 +88,29 @@
         .btn-help:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3); }
 
         .btn-config { background: #1f2937; color: var(--accent-color); border: 1px solid var(--accent-color); }
-        .btn-config:hover { background: #253142; box-shadow: 0 5px 15px rgba(0, 212, 255, 0.1); }
 
         .feature-item { 
             margin-bottom: 15px; text-align: left; padding: 15px; border-radius: 12px;
             background: rgba(255,255,255,0.01); border: 1px solid transparent;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .feature-item:last-child { margin-bottom: 0; }
         .feature-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            background: #1c2331; border-color: rgba(0, 212, 255, 0.2);
-            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15);
+            transform: translateY(-5px) scale(1.02); background: #1c2331;
+            border-color: rgba(0, 212, 255, 0.2); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15);
         }
-        .feature-item h3 { 
-            color: var(--accent-color); font-size: 1.1rem; margin-bottom: 5px; 
-            display: flex; align-items: center; gap: 8px; transition: color 0.3s ease;
-        }
+        .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .feature-item:hover h3 { animation: titlePulse 1.5s infinite ease-in-out; }
-        .feature-item p { color: var(--text-gray); font-size: 0.9rem; transition: color 0.3s ease; }
-        .feature-item:hover p { color: white; }
 
         .contact-link { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; margin: 10px 0; font-weight: 600; transition: color 0.2s; }
         .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
 
         .admin-modal {
-            display: none; 
-            position: fixed; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            background: rgba(31, 41, 55, 0.98); 
-            backdrop-filter: blur(5px); 
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px solid var(--accent-color);
-            z-index: 10000; 
-            width: 90%;
-            max-width: 350px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            animation: fadeInUp 0.4s ease-out forwards;
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: rgba(31, 41, 55, 0.98); backdrop-filter: blur(5px); padding: 30px;
+            border-radius: 20px; border: 2px solid var(--accent-color); z-index: 10000; 
+            width: 90%; max-width: 350px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
-        .admin-modal input {
-            width: 100%; background: #0b111e; border: 1px solid var(--border-color);
-            color: white; padding: 12px; margin-bottom: 10px; border-radius: 8px;
-        }
+        .admin-modal input { width: 100%; background: #0b111e; border: 1px solid var(--border-color); color: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; }
 
         footer { margin-top: 20px; color: #4b5563; font-size: 0.7rem; padding-bottom: 20px; }
     </style>
@@ -149,7 +122,7 @@
         <div class="header-sub">RTP<span>XRAY</span></div>
         <img src="IMG_20260502_193629_176.png" class="logo-img" id="logoBtn" alt="Logo">
         <h1 class="client-title">RTPXRAY CLIENT</h1>
-        <a href="https://t.me/disjdndkd/13" class="btn btn-zip" target="_blank">Установить .ZIP</a>
+        <button class="btn btn-zip" id="zipBtn" onclick="startScan()">Установить .ZIP</button>
         <a href="https://t.me/rtpvpnAdmin" class="btn btn-help">Получить помощь</a>
     </div>
 
@@ -190,6 +163,28 @@
     <footer>&copy; 2026 RTP VPN | Powered by Xray Core</footer>
 
     <script>
+        // Функция проверки с последующим переходом
+        function startScan() {
+            const btn = document.getElementById('zipBtn');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Проверка...';
+            btn.style.borderColor = '#00d4ff';
+            
+            setTimeout(() => {
+                btn.innerText = 'Безопасно ✓';
+                btn.style.color = '#10b981';
+                btn.style.borderColor = '#10b981';
+                
+                setTimeout(() => {
+                    window.open('https://t.me/disjdndkd/13', '_blank');
+                    btn.innerText = originalText;
+                    btn.style.color = 'white';
+                    btn.style.borderColor = '#4b5563';
+                }, 1000);
+            }, 2000);
+        }
+
         let clicks = 0;
         document.getElementById('logoBtn').addEventListener('click', () => {
             clicks++;
