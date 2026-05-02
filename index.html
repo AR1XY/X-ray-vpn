@@ -13,6 +13,18 @@
             --text-gray: #9ca3af;
         }
 
+        /* Анимация появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -21,11 +33,13 @@
             color: white;
             line-height: 1.6;
             text-align: center;
+            overflow-x: hidden;
         }
 
         header {
             padding: 30px 20px;
             background: rgba(11, 15, 25, 0.95);
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .title-top { font-size: 28px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
@@ -37,6 +51,7 @@
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
+            animation: fadeInUp 1s ease-out;
         }
 
         .logo-img {
@@ -51,6 +66,14 @@
 
         .client-name { font-size: 2rem; font-weight: 800; margin-bottom: 40px; text-transform: uppercase; }
 
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
         .btn-install {
             background: none;
             color: white;
@@ -59,10 +82,11 @@
             text-decoration: none;
             font-weight: 700;
             border: 2px dashed #4b5563;
-            display: inline-block;
             transition: 0.3s;
             cursor: pointer;
             text-transform: uppercase;
+            width: 100%;
+            max-width: 300px;
         }
 
         .btn-install:hover {
@@ -70,11 +94,44 @@
             color: var(--accent-color);
         }
 
+        .btn-help {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            width: 100%;
+            max-width: 300px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn-help:hover {
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: scale(1.02);
+        }
+
+        /* Блок протоколов */
+        .protocols-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
         .features {
             max-width: 500px;
             width: 90%;
             text-align: left;
-            margin: 50px auto;
+            margin: 20px auto 50px;
+            animation: fadeInUp 1.4s ease-out;
         }
 
         .feature-item {
@@ -95,6 +152,7 @@
             width: 90%;
             max-width: 400px;
             margin: 0 auto 40px;
+            animation: fadeInUp 1.6s ease-out;
         }
 
         .link-item {
@@ -119,15 +177,22 @@
         <img src="IMG_20260502_193629_176.png" alt="RB Logo" class="logo-img">
         
         <h1 class="client-name">RtpBox CLIENT</h1>
+
+        <div class="protocols-badge">
+            ПОДДЕРЖКА ВСЕХ ПРОТОКОЛОВ: VLESS • REALITY • TROJAN • SHADOWSOCKS
+        </div>
         
-        <div onclick="alert('Скоро')" class="btn-install">Установить .ZIP</div>
+        <div class="btn-container">
+            <div onclick="alert('Скоро')" class="btn-install">Установить .ZIP</div>
+            <a href="https://t.me/rtpvpnAdmin" class="btn-help" target="_blank">Получить помощь</a>
+        </div>
 
         <div class="features">
             <h2 style="text-align: center; font-size: 1.2rem; margin-bottom: 20px;">Почему выбирают наш клиент?</h2>
             
             <div class="feature-item">
-                <h3>Протокол Xray (VLESS/Reality)</h3>
-                <p>Самый современный метод обхода блокировок. Ваш трафик невозможно отличить от обычного посещения сайта.</p>
+                <h3>Универсальный протокол</h3>
+                <p>Клиент поддерживает все современные протоколы обхода блокировок, обеспечивая доступ в любой ситуации.</p>
             </div>
 
             <div class="feature-item">
