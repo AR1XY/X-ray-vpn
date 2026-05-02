@@ -14,6 +14,18 @@
             --text-gray: #9ca3af;
         }
 
+        /* Анимации появления */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scanPulse {
+            0% { border-color: #4b5563; color: white; }
+            50% { border-color: var(--accent-color); color: var(--accent-color); }
+            100% { border-color: #4b5563; color: white; }
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
@@ -22,85 +34,97 @@
             color: white;
             line-height: 1.6;
             text-align: center;
+            overflow-x: hidden;
         }
-
-        /* Навигация */
-        .nav-menu {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(11, 17, 30, 0.9);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px;
-            border-bottom: 1px solid #2a313e;
-        }
-
-        .nav-link {
-            color: var(--text-gray);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-link:hover { color: var(--accent-color); }
 
         /* Шапка */
-        header { padding: 40px 20px 20px; }
+        header {
+            padding: 40px 20px 20px;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
         .header-top { font-size: 26px; font-weight: 800; color: var(--header-gray); text-transform: uppercase; }
         .header-sub { font-size: 18px; font-weight: 700; color: white; letter-spacing: 1px; }
         .header-sub span { color: var(--accent-color); }
 
-        /* Контент */
-        .hero { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        /* Основной контент */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
         .logo-img {
             width: 170px; height: 170px;
             object-fit: cover; border-radius: 20px;
             margin-bottom: 25px;
             box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
             border: 1px solid #333;
-            cursor: pointer; /* Сделали логотип кликабельным */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
+        .logo-img:hover { transform: scale(1.08) rotate(2deg); }
 
         .client-name { font-size: 2.2rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; }
 
         .btn-container { display: flex; flex-direction: column; gap: 15px; align-items: center; margin-bottom: 10px; width: 100%; }
+
         .btn-install {
             background: none; color: white; padding: 18px 45px; border-radius: 15px;
             text-decoration: none; font-weight: 700; border: 2px dashed #4b5563;
             cursor: pointer; text-transform: uppercase; width: 100%; max-width: 320px;
+            transition: all 0.3s ease;
         }
+        .btn-install:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 212, 255, 0.05); }
+        .btn-install.scanning { animation: scanPulse 0.5s infinite ease-in-out; border-style: solid; }
 
         .btn-help {
             background: var(--accent-color); color: var(--dark-bg);
             padding: 12px 30px; border-radius: 10px; text-decoration: none;
             font-weight: 700; width: 100%; max-width: 320px;
-            text-transform: uppercase; font-size: 0.9rem; display: inline-block;
+            text-transform: uppercase; font-size: 0.9rem; transition: all 0.3s ease;
         }
+        .btn-help:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3); }
 
-        .security-note { font-size: 0.75rem; color: #10b981; margin-bottom: 60px; display: flex; align-items: center; gap: 5px; justify-content: center; }
+        .security-note { font-size: 0.75rem; color: #10b981; margin: 20px 0 60px; display: flex; align-items: center; gap: 5px; justify-content: center; }
 
-        section.content-block { max-width: 800px; width: 90%; margin: 0 auto 80px; text-align: left; }
-        .section-title { text-align: center; font-size: 1.8rem; font-weight: 800; margin-bottom: 30px; }
+        /* Секция почему мы */
+        .why-us {
+            max-width: 800px; width: 90%; margin: 0 auto 50px; text-align: left;
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .feature-item { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid #2a313e; }
+        .feature-item {
+            background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid #2a313e;
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover { transform: translateY(-5px); border-color: var(--accent-color); }
         .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 10px; }
         .feature-item p { font-size: 0.85rem; color: var(--text-gray); }
 
+        /* Помощники */
         .helpers-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
         .helper-badge { background: #1f2937; padding: 6px 16px; border-radius: 50px; font-size: 0.8rem; border: 1px solid #374151; color: var(--accent-color); }
 
-        /* Админ-панель */
+        /* Футер ссылки */
+        .footer-links {
+            background: var(--card-bg); padding: 25px; border-radius: 20px;
+            width: 90%; max-width: 400px; margin: 40px auto; border: 1px solid #2a313e;
+            animation: fadeInUp 1.4s ease-out forwards;
+        }
+        .link-item { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: 600; transition: 0.2s; }
+        .link-item:hover { color: var(--accent-color); padding-left: 5px; }
+        .link-config { color: var(--accent-color) !important; border-top: 1px solid #2a313e; padding-top: 15px; margin-top: 15px; }
+
+        /* Скрытая админка */
         .admin-panel {
             display: none; position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%); background: #1f2937;
             padding: 30px; border-radius: 20px; border: 2px solid var(--accent-color);
             z-index: 9999; width: 90%; max-width: 400px; box-shadow: 0 0 50px rgba(0,0,0,0.8);
         }
-        .admin-panel input, .admin-panel textarea {
+        .admin-panel input {
             width: 100%; background: #111827; border: 1px solid #374151;
             color: white; padding: 10px; margin-bottom: 10px; border-radius: 8px;
         }
@@ -114,14 +138,7 @@
 </head>
 <body>
 
-    <nav class="nav-menu">
-        <a href="#home" class="nav-link">Главная</a>
-        <a href="#changelog" class="nav-link">История</a>
-        <a href="#reviews" class="nav-link">Отзывы</a>
-        <a href="#donate" class="nav-link">Донат</a>
-    </nav>
-
-    <header id="home">
+    <header>
         <div class="header-top">XRAY VPN</div>
         <div class="header-sub">RTP<span>XRAY</span></div>
     </header>
@@ -140,90 +157,82 @@
             Безопасно: Вирусов не обнаружено
         </div>
 
-        <section id="changelog" class="content-block">
-            <h2 class="section-title">История исправлений</h2>
-            <div class="feature-item">
-                <h3 style="color: #10b981;">v1.0.4-stable</h3>
-                <p>• Обновлено ядро Xray Core<br>• Добавлен скрытый интерфейс управления<br>• Изменен стиль навигации</p>
-            </div>
-        </section>
-
-        <section id="reviews" class="content-block">
-            <h2 class="section-title">Отзывы</h2>
+        <section class="why-us">
+            <h2 style="text-align: center; margin-bottom: 30px;">Почему RTPXRAY?</h2>
             <div class="feature-grid">
                 <div class="feature-item">
-                    <h3 id="rev-name-1">@User_Alpha</h3>
-                    <p id="rev-text-1">"Единственный клиент, который стабильно работает в моем регионе. Респект!"</p>
+                    <h3>⚡ Скорость</h3>
+                    <p>Прямое подключение к серверам без ограничений пропускной способности.</p>
                 </div>
                 <div class="feature-item">
-                    <h3 id="rev-name-2">@VpnMaster</h3>
-                    <p id="rev-text-2">"Скорость пушка, пинг в играх почти не вырос. Всем советую."</p>
+                    <h3>🔒 Приватность</h3>
+                    <p>Xray Core маскирует ваш трафик под обычный веб-серфинг.</p>
                 </div>
             </div>
         </section>
 
-        <section id="donate" class="content-block" style="text-align: center;">
-            <h2 class="section-title">Поддержать проект</h2>
-            <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn-help" target="_blank">Пожертвовать</a>
-            <div class="helpers-list">
+        <section style="text-align: center; margin-bottom: 50px;">
+            <h2 style="margin-bottom: 20px;">Поддержать проект</h2>
+            <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn-help" target="_blank" style="max-width: 250px;">Задонатить</a>
+            
+            <div class="helpers-list" id="helpersContainer">
                 <span class="helper-badge">@Admin_RTP</span>
                 <span class="helper-badge">@Tester_X</span>
-                <span class="helper-badge">@Donator_Ivan</span>
             </div>
         </section>
+
+        <div class="footer-links">
+            <a href="http://t.me/bypassrtp" class="link-item" target="_blank">📢 Telegram канал</a>
+            <a href="https://t.me/rtpvpnAdmin" class="link-item" target="_blank">👨‍💻 Создатель: @rtpvpnAdmin</a>
+            <a href="https://t.me/freeinternet_byMygalaru" class="link-item link-config" target="_blank">🔑 Получить конфигурации</a>
+        </div>
     </main>
 
     <div id="adminPanel" class="admin-panel">
-        <h2 style="margin-bottom:15px;">Управление отзывами</h2>
-        <input type="text" id="editName1" placeholder="Имя 1">
-        <textarea id="editText1" placeholder="Отзыв 1"></textarea>
-        <hr style="margin: 10px 0; opacity: 0.2;">
-        <input type="text" id="editName2" placeholder="Имя 2">
-        <textarea id="editText2" placeholder="Отзыв 2"></textarea>
-        <button class="admin-btn" onclick="saveReviews()">Сохранить</button>
+        <h2 style="margin-bottom:15px;">Админ-панель</h2>
+        <p style="font-size: 0.8rem; color: var(--accent-color);">Помощники (через запятую):</p>
+        <input type="text" id="editHelpers" placeholder="User1, User2">
+        <button class="admin-btn" onclick="saveAdmin()">Применить</button>
+        <button class="admin-btn" style="background:#10b981;" onclick="copyFullCode()">Копировать код для GitHub</button>
         <button class="admin-btn" style="background:#4b5563;" onclick="closeAdmin()">Закрыть</button>
     </div>
 
     <footer>&copy; 2026 RTP VPN Project | Powered by Xray Core</footer>
 
     <script>
-        // Скрипт сканирования
         function startScan() {
             const btn = document.getElementById('downloadBtn');
             const originalText = btn.innerText;
+            if(btn.classList.contains('scanning')) return;
+            btn.classList.add('scanning');
             btn.innerText = 'Проверка на вирусы...';
-            setTimeout(() => { alert('Скоро'); btn.innerText = originalText; }, 2000); 
+            setTimeout(() => { alert('Скоро'); btn.classList.remove('scanning'); btn.innerText = originalText; }, 2000); 
         }
 
-        // Секретная админка: 5 нажатий на лого
+        // Админка: 5 кликов по лого
         let logoClicks = 0;
-        const logo = document.getElementById('secretLogo');
-
-        logo.addEventListener('click', () => {
+        document.getElementById('secretLogo').addEventListener('click', () => {
             logoClicks++;
             if (logoClicks === 5) {
-                logoClicks = 0; // Сброс
-                let pass = prompt("Введите пароль:");
-                if (pass === "123") {
-                    document.getElementById('adminPanel').style.display = 'block';
-                    // Заполняем поля текущими текстами
-                    document.getElementById('editName1').value = document.getElementById('rev-name-1').innerText;
-                    document.getElementById('editText1').value = document.getElementById('rev-text-1').innerText;
-                    document.getElementById('editName2').value = document.getElementById('rev-name-2').innerText;
-                    document.getElementById('editText2').value = document.getElementById('rev-text-2').innerText;
-                } else {
-                    alert("Неверно!");
-                }
+                logoClicks = 0;
+                let pass = prompt("Пароль:");
+                if (pass === "123") { document.getElementById('adminPanel').style.display = 'block'; }
             }
         });
 
-        function saveReviews() {
-            document.getElementById('rev-name-1').innerText = document.getElementById('editName1').value;
-            document.getElementById('rev-text-1').innerText = document.getElementById('editText1').value;
-            document.getElementById('rev-name-2').innerText = document.getElementById('editName2').value;
-            document.getElementById('rev-text-2').innerText = document.getElementById('editText2').value;
-            alert("Обновлено локально!");
-            closeAdmin();
+        function saveAdmin() {
+            const container = document.getElementById('helpersContainer');
+            const names = document.getElementById('editHelpers').value.split(',');
+            container.innerHTML = '';
+            names.forEach(name => {
+                if(name.trim()) container.innerHTML += `<span class="helper-badge">${name.trim()}</span>`;
+            });
+            alert("Готово!");
+        }
+
+        function copyFullCode() {
+            const fullCode = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            navigator.clipboard.writeText(fullCode).then(() => { alert("Код скопирован! Вставь его на GitHub."); });
         }
 
         function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
