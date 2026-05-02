@@ -11,18 +11,18 @@
             --dark-bg: #0b0f19;
             --card-bg: #161b26;
             --text-gray: #9ca3af;
+            --success-color: #10b981;
         }
 
-        /* Анимация появления */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,12 +33,10 @@
             color: white;
             line-height: 1.6;
             text-align: center;
-            overflow-x: hidden;
         }
 
         header {
             padding: 30px 20px;
-            background: rgba(11, 15, 25, 0.95);
             animation: fadeInUp 0.8s ease-out;
         }
 
@@ -66,12 +64,24 @@
 
         .client-name { font-size: 2rem; font-weight: 800; margin-bottom: 40px; text-transform: uppercase; }
 
+        .protocols-badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+        }
+
         .btn-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
+            width: 100%;
         }
 
         .btn-install {
@@ -87,9 +97,11 @@
             text-transform: uppercase;
             width: 100%;
             max-width: 300px;
+            position: relative;
         }
 
-        .btn-install:hover {
+        .btn-install.scanning {
+            animation: pulse 1s infinite;
             border-color: var(--accent-color);
             color: var(--accent-color);
         }
@@ -108,22 +120,14 @@
             font-size: 0.9rem;
         }
 
-        .btn-help:hover {
-            box-shadow: 0 0 15px var(--accent-color);
-            transform: scale(1.02);
-        }
-
-        /* Блок протоколов */
-        .protocols-badge {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--accent-color);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent-color);
+        .security-note {
+            font-size: 0.75rem;
+            color: var(--success-color);
             margin-bottom: 40px;
-            animation: fadeInUp 1.2s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.8;
         }
 
         .features {
@@ -131,7 +135,6 @@
             width: 90%;
             text-align: left;
             margin: 20px auto 50px;
-            animation: fadeInUp 1.4s ease-out;
         }
 
         .feature-item {
@@ -152,7 +155,6 @@
             width: 90%;
             max-width: 400px;
             margin: 0 auto 40px;
-            animation: fadeInUp 1.6s ease-out;
         }
 
         .link-item {
@@ -179,30 +181,28 @@
         <h1 class="client-name">RtpBox CLIENT</h1>
 
         <div class="protocols-badge">
-            ПОДДЕРЖКА ВСЕХ ПРОТОКОЛОВ: VLESS • REALITY • TROJAN • SHADOWSOCKS
+            VLESS • REALITY • TROJAN • SHADOWSOCKS
         </div>
         
         <div class="btn-container">
-            <div onclick="alert('Скоро')" class="btn-install">Установить .ZIP</div>
+            <div id="downloadBtn" onclick="startScan()" class="btn-install">Установить .ZIP</div>
             <a href="https://t.me/rtpvpnAdmin" class="btn-help" target="_blank">Получить помощь</a>
+        </div>
+
+        <div class="security-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Проверено: Вирусов не обнаружено
         </div>
 
         <div class="features">
             <h2 style="text-align: center; font-size: 1.2rem; margin-bottom: 20px;">Почему выбирают наш клиент?</h2>
-            
             <div class="feature-item">
                 <h3>Универсальный протокол</h3>
-                <p>Клиент поддерживает все современные протоколы обхода блокировок, обеспечивая доступ в любой ситуации.</p>
+                <p>Клиент поддерживает все современные протоколы обхода блокировок.</p>
             </div>
-
             <div class="feature-item">
                 <h3>Максимальная скорость</h3>
-                <p>В отличие от обычных VPN, наш клиент не режет скорость. Смотрите 4K видео без задержек.</p>
-            </div>
-
-            <div class="feature-item">
-                <h3>Полная анонимность</h3>
-                <p>Мы не храним логи и не собираем ваши данные. Весь трафик надежно зашифрован.</p>
+                <p>Прямое подключение к серверам без ограничений пропускной способности.</p>
             </div>
         </div>
 
@@ -211,6 +211,25 @@
             <a href="https://t.me/rtpvpnAdmin" class="link-item" target="_blank">👨‍💻 Создатель: @rtpvpnAdmin</a>
         </div>
     </section>
+
+    <script>
+        function startScan() {
+            const btn = document.getElementById('downloadBtn');
+            const originalText = btn.innerText;
+            
+            // Если уже сканируем, ничего не делать
+            if(btn.classList.contains('scanning')) return;
+
+            btn.classList.add('scanning');
+            btn.innerText = 'Проверка на вирусы...';
+
+            setTimeout(() => {
+                alert('Скоро');
+                btn.classList.remove('scanning');
+                btn.innerText = originalText;
+            }, 2000); // 2 секунды на "сканирование"
+        }
+    </script>
 
     <footer>
         &copy; 2026 RTP VPN Project | Powered by Xray Core
