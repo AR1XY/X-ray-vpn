@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XRAY VPN — RTPXRAY</title>
+    <title>RtpBox CLIENT</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -62,7 +62,7 @@
             border: 1px solid #333;
         }
 
-        .client-name { font-size: 2rem; font-weight: 800; margin-bottom: 40px; text-transform: uppercase; }
+        .client-name { font-size: 2.2rem; font-weight: 800; margin-bottom: 30px; text-transform: uppercase; }
 
         .protocols-badge {
             background: rgba(0, 212, 255, 0.1);
@@ -96,8 +96,7 @@
             cursor: pointer;
             text-transform: uppercase;
             width: 100%;
-            max-width: 300px;
-            position: relative;
+            max-width: 320px;
         }
 
         .btn-install.scanning {
@@ -115,7 +114,7 @@
             font-weight: 700;
             transition: 0.3s;
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             text-transform: uppercase;
             font-size: 0.9rem;
         }
@@ -123,29 +122,36 @@
         .security-note {
             font-size: 0.75rem;
             color: var(--success-color);
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             display: flex;
             align-items: center;
             gap: 5px;
-            opacity: 0.8;
+            justify-content: center;
         }
 
-        .features {
-            max-width: 500px;
+        .why-us {
+            max-width: 800px;
             width: 90%;
+            margin: 0 auto 50px;
             text-align: left;
-            margin: 20px auto 50px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .feature-item {
             background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #2a313e;
         }
 
-        .feature-item h3 { font-size: 1rem; margin-bottom: 5px; color: var(--accent-color); }
+        .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 10px; }
         .feature-item p { font-size: 0.85rem; color: var(--text-gray); }
 
         .footer-links {
@@ -155,17 +161,12 @@
             width: 90%;
             max-width: 400px;
             margin: 0 auto 40px;
+            border: 1px solid #2a313e;
         }
 
-        .link-item {
-            display: block;
-            color: white;
-            text-decoration: none;
-            margin: 12px 0;
-            font-weight: 600;
-        }
+        .link-item { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: 600; }
 
-        footer { padding: 20px; color: #4b5563; font-size: 0.75rem; }
+        footer { padding: 30px; color: #4b5563; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -176,12 +177,12 @@
     </header>
 
     <section class="hero">
-        <img src="IMG_20260502_193629_176.png" alt="RB Logo" class="logo-img">
+        <img src="IMG_20260502_193629_176.png" alt="RtpBox Logo" class="logo-img">
         
         <h1 class="client-name">RtpBox CLIENT</h1>
 
         <div class="protocols-badge">
-            VLESS • REALITY • TROJAN • SHADOWSOCKS
+            ПОДДЕРЖКА: VLESS • REALITY • TROJAN • SHADOWSOCKS
         </div>
         
         <div class="btn-container">
@@ -194,15 +195,25 @@
             Проверено: Вирусов не обнаружено
         </div>
 
-        <div class="features">
-            <h2 style="text-align: center; font-size: 1.2rem; margin-bottom: 20px;">Почему выбирают наш клиент?</h2>
-            <div class="feature-item">
-                <h3>Универсальный протокол</h3>
-                <p>Клиент поддерживает все современные протоколы обхода блокировок.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Максимальная скорость</h3>
-                <p>Прямое подключение к серверам без ограничений пропускной способности.</p>
+        <div class="why-us">
+            <h2 style="text-align: center; margin-bottom: 10px;">Почему выбирают RtpBox?</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>⚡ Скорость без границ</h3>
+                    <p>Прямое подключение к серверам без ограничений пропускной способности. Идеально для 4K и игр.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🔒 Полная приватность</h3>
+                    <p>Мы используем Xray Core, который маскирует ваш трафик под обычный веб-серфинг.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🛠️ Умный обход DPI</h3>
+                    <p>Встроенные инструменты фрагментации пакетов позволяют обходить даже самые сложные блокировки.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>💻 Минимум настроек</h3>
+                    <p>Вам не нужно быть программистом. Распаковали, запустили и вы уже в сети.</p>
+                </div>
             </div>
         </div>
 
@@ -216,8 +227,6 @@
         function startScan() {
             const btn = document.getElementById('downloadBtn');
             const originalText = btn.innerText;
-            
-            // Если уже сканируем, ничего не делать
             if(btn.classList.contains('scanning')) return;
 
             btn.classList.add('scanning');
@@ -227,7 +236,7 @@
                 alert('Скоро');
                 btn.classList.remove('scanning');
                 btn.innerText = originalText;
-            }, 2000); // 2 секунды на "сканирование"
+            }, 2000); 
         }
     </script>
 
