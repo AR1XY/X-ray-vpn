@@ -14,13 +14,13 @@
             --text-gray: #9ca3af;
         }
 
-        /* Анимация плавного появления окон при загрузке */
+        /* Анимация плавного появления окон */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Анимация пульсации для заголовков преимуществ */
+        /* Анимация пульсации заголовков (при наведении) */
         @keyframes titlePulse {
             0% { text-shadow: 0 0 5px rgba(0, 212, 255, 0); }
             50% { text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
@@ -38,10 +38,10 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            overflow-x: hidden; /* Защита от горизонтального скролла при анимациях */
+            overflow-x: hidden;
         }
 
-        /* Базовый стиль окна-карточки */
+        /* Окно-карточка */
         .window-card {
             background: var(--card-bg);
             width: 100%;
@@ -50,15 +50,12 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             margin-bottom: 20px;
-            /* Плавное появление при загрузке */
             animation: fadeInUp 0.6s ease-out forwards;
-            opacity: 0; /* Изначально скрыто */
+            opacity: 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Плавность для hover-эффектов самого окна */
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
         
-        /* Эффект при наведении на все окна */
         .window-card:hover { 
             border-color: rgba(0, 212, 255, 0.3); 
         }
@@ -68,7 +65,7 @@
         .header-sub { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-align: center; }
         .header-sub span { color: var(--accent-color); }
 
-        /* Логотип с плавным увеличением */
+        /* Логотип RB */
         .logo-img {
             width: 150px; height: 150px;
             border-radius: 20px;
@@ -77,7 +74,6 @@
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
             border: 1px solid #333;
             cursor: pointer;
-            /* Плавность для hover */
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .logo-img:hover { 
@@ -87,16 +83,17 @@
 
         .client-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
 
-        /* Общий стиль кнопок с плавностью */
+        /* Кнопки */
         .btn {
             display: block; width: 100%; padding: 16px;
             border-radius: 12px; font-weight: 700; text-transform: uppercase;
             text-decoration: none; text-align: center; 
-            transition: all 0.3s ease; /* Плавность для всех свойств */
+            transition: all 0.3s ease;
             cursor: pointer; border: none; font-family: 'Inter', sans-serif;
         }
 
         .btn-zip { background: none; color: white; border: 2px dashed #4b5563; margin-bottom: 15px; }
+        /* Анимация пульсации при наведении сохранена */
         .btn-zip:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 212, 255, 0.05); }
 
         .btn-help { background: var(--accent-color); color: var(--dark-bg); }
@@ -105,63 +102,45 @@
         .btn-config { background: #1f2937; color: var(--accent-color); border: 1px solid var(--accent-color); }
         .btn-config:hover { background: #253142; box-shadow: 0 5px 15px rgba(0, 212, 255, 0.1); }
 
-        /* --- СТИЛИЗАЦИЯ И АНИМАЦИЯ ПУНКТОВ "ПОЧЕМУ МЫ" --- */
+        /* Пункты "Почему мы" */
         .feature-item { 
-            margin-bottom: 15px; 
-            text-align: left; 
-            padding: 15px; 
-            border-radius: 12px;
-            background: rgba(255,255,255,0.01); /* Почти прозрачный фон */
-            border: 1px solid transparent;
-            /* Самое важное: плавность для hover-эффектов */
+            margin-bottom: 15px; text-align: left; padding: 15px; border-radius: 12px;
+            background: rgba(255,255,255,0.01); border: 1px solid transparent;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-
         .feature-item:last-child { margin-bottom: 0; }
-
-        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ НА ПУНКТ */
         .feature-item:hover {
-            transform: translateY(-5px) scale(1.02); /* Приподнимание и легкое увеличение */
-            background: #1c2331; /* Фон становится чуть светлее */
-            border-color: rgba(0, 212, 255, 0.2); /* Появляется слабая голубая рамка */
-            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15); /* Голубое свечение */
+            transform: translateY(-5px) scale(1.02);
+            background: #1c2331; border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15);
         }
-
         .feature-item h3 { 
-            color: var(--accent-color); 
-            font-size: 1.1rem; 
-            margin-bottom: 5px; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            transition: color 0.3s ease;
+            color: var(--accent-color); font-size: 1.1rem; margin-bottom: 5px; 
+            display: flex; align-items: center; gap: 8px; transition: color 0.3s ease;
         }
-
-        /* Легкая пульсация заголовка при наведении на пункт */
-        .feature-item:hover h3 {
-            animation: titlePulse 1.5s infinite ease-in-out;
-        }
-
-        .feature-item p { 
-            color: var(--text-gray); 
-            font-size: 0.9rem; 
-            transition: color 0.3s ease;
-        }
-        
-        .feature-item:hover p {
-            color: white; /* Текст становится белым при наведении */
-        }
-
-        /* --- КОНЕЦ АНИМАЦИЙ ПУНКТОВ --- */
+        .feature-item:hover h3 { animation: titlePulse 1.5s infinite ease-in-out; }
+        .feature-item p { color: var(--text-gray); font-size: 0.9rem; transition: color 0.3s ease; }
+        .feature-item:hover p { color: white; }
 
         .contact-link { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; margin: 10px 0; font-weight: 600; transition: color 0.2s; }
         .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
 
+        /* --- ИСПРАВЛЕННАЯ АДМИН ПАНЕЛЬ --- */
         .admin-modal {
-            display: none; position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); background: #1f2937;
-            padding: 30px; border-radius: 20px; border: 2px solid var(--accent-color);
-            z-index: 10000; width: 90%; max-width: 350px;
+            display: none; /* Скрыта */
+            position: fixed; /* Фиксированное положение */
+            top: 50%; /* Сверху */
+            left: 50%; /* Слева */
+            transform: translate(-50%, -50%); /* Центрирование */
+            background: rgba(31, 41, 55, 0.98); /* Фон */
+            backdrop-filter: blur(5px); /* Размытие заднего фона */
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--accent-color);
+            z-index: 10000; /* Поверх всего */
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             animation: fadeInUp 0.4s ease-out forwards;
         }
         .admin-modal input {
@@ -204,7 +183,7 @@
 
         <div class="feature-item">
             <h3>🛠️ Обход блокировок</h3>
-            <p>Умная фрагментация пакетов позволяет заходить на любые RESOURCES.</p>
+            <p>Умная фрагментация пакетов позволяет заходить на любые Resources.</p>
         </div>
 
         <div class="feature-item">
@@ -244,17 +223,9 @@
     <footer>&copy; 2026 RTP VPN | Powered by Xray Core</footer>
 
     <script>
-        // Имитация сканирования
+        // Имитация сканирования УДАЛЕНА. Теперь сразу "Скоро".
         function startScan() {
-            const zipBtn = document.querySelector('.btn-zip');
-            const originalText = zipBtn.innerText;
-            zipBtn.innerText = 'Проверка...';
-            zipBtn.style.animation = 'fadeInUp 0.3s infinite ease-in-out';
-            setTimeout(() => {
-                alert('Сборка ZIP в процессе. Ожидайте обновления.');
-                zipBtn.innerText = originalText;
-                zipBtn.style.animation = 'none';
-            }, 2500);
+            alert('Скоро будет доступно. Сборка архива в процессе.');
         }
 
         // Админка
@@ -263,6 +234,8 @@
             clicks++;
             if (clicks === 5) {
                 document.getElementById('adminPanel').style.display = 'block';
+                // Блокируем скролл фона при открытой админке
+                document.body.style.overflow = 'hidden';
                 clicks = 0;
             }
         });
@@ -274,7 +247,11 @@
             } else { alert("Неверно!"); }
         }
 
-        function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
+        function closeAdmin() { 
+            document.getElementById('adminPanel').style.display = 'none'; 
+            // Возвращаем скролл
+            document.body.style.overflow = 'auto';
+        }
     </script>
 </body>
 </html>
