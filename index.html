@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTP XRAY — Скорость и Анонимность</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>XRAY VPN — RTPXRAY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent-color: #00d4ff;
-            --glow-color: rgba(0, 212, 255, 0.4);
             --dark-bg: #0b0f19;
             --card-bg: #161b26;
             --text-gray: #9ca3af;
@@ -21,69 +20,60 @@
             background-color: var(--dark-bg);
             color: white;
             line-height: 1.6;
+            text-align: center;
         }
 
         header {
-            padding: 20px;
-            text-align: center;
+            padding: 30px 20px;
             background: rgba(11, 15, 25, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #1f2937;
         }
 
-        .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; }
-        .logo span { color: var(--accent-color); }
+        .title-top { font-size: 28px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+        .title-sub { font-size: 20px; font-weight: 700; color: white; letter-spacing: 1px; }
+        .title-sub span { color: var(--accent-color); }
 
         .hero {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 120px 20px 40px;
-            text-align: center;
+            padding: 40px 20px;
         }
 
-        .app-preview {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 6px solid #064e57;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* Логотип со второго фото */
+        .logo-img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
             margin-bottom: 30px;
-            box-shadow: 0 0 30px var(--glow-color);
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.3));
         }
 
-        .app-preview::after {
-            content: '⏻';
-            font-size: 60px;
-            color: var(--accent-color);
-        }
-
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        .status { color: var(--accent-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 30px; }
+        .client-name { font-size: 2.2rem; font-weight: 800; margin-bottom: 40px; }
 
         .btn-install {
-            background: var(--card-bg);
-            color: var(--text-gray);
-            padding: 18px 50px;
+            background: none;
+            color: white;
+            padding: 18px 45px;
             border-radius: 15px;
             text-decoration: none;
             font-weight: 700;
-            border: 1px dashed var(--text-gray);
-            cursor: not-allowed;
-            margin-bottom: 50px;
+            border: 2px dashed #4b5563;
+            display: inline-block;
+            transition: 0.3s;
+            cursor: pointer;
+            text-transform: uppercase;
         }
 
-        /* Блок "Почему мы" */
+        .btn-install:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
         .features {
             max-width: 500px;
-            width: 100%;
+            width: 90%;
             text-align: left;
-            margin-bottom: 50px;
+            margin: 50px auto;
         }
 
         .feature-item {
@@ -101,10 +91,9 @@
             background: var(--card-bg);
             padding: 25px;
             border-radius: 20px;
-            width: 100%;
+            width: 90%;
             max-width: 400px;
-            margin-bottom: 40px;
-            text-align: center;
+            margin: 0 auto 40px;
         }
 
         .link-item {
@@ -113,25 +102,24 @@
             text-decoration: none;
             margin: 12px 0;
             font-weight: 600;
-            font-size: 0.95rem;
         }
 
-        footer { padding: 20px; text-align: center; color: #4b5563; font-size: 0.75rem; }
+        footer { padding: 20px; color: #4b5563; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">RTP<span>XRAY</span></div>
+        <div class="title-top">XRAY VPN</div>
+        <div class="title-sub">RTP<span>XRAY</span></div>
     </header>
 
     <section class="hero">
-        <div class="app-preview"></div>
+        <img src="logo.png" alt="RB Logo" class="logo-img">
         
-        <h1>RTP XRAY CLIENT</h1>
-        <div class="status">СТАТУС: ПОДГОТОВКА СБОРКИ</div>
+        <h1 class="client-name">RTP XRAY CLIENT</h1>
         
-        <a href="javascript:void(0)" class="btn-install">СКОРО В .ZIP</a>
+        <div onclick="alert('Скоро')" class="btn-install">Установить .ZIP</div>
 
         <div class="features">
             <h2 style="text-align: center; font-size: 1.2rem; margin-bottom: 20px;">Почему выбирают наш клиент?</h2>
