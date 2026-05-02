@@ -14,9 +14,17 @@
             --text-gray: #9ca3af;
         }
 
+        /* Анимация плавного появления окон при загрузке */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Анимация пульсации для заголовков преимуществ */
+        @keyframes titlePulse {
+            0% { text-shadow: 0 0 5px rgba(0, 212, 255, 0); }
+            50% { text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+            100% { text-shadow: 0 0 5px rgba(0, 212, 255, 0); }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,9 +38,10 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden; /* Защита от горизонтального скролла при анимациях */
         }
 
-        /* Каждое окно - отдельный блок */
+        /* Базовый стиль окна-карточки */
         .window-card {
             background: var(--card-bg);
             width: 100%;
@@ -41,14 +50,25 @@
             border: 1px solid var(--border-color);
             padding: 25px;
             margin-bottom: 20px;
+            /* Плавное появление при загрузке */
             animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0; /* Изначально скрыто */
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* Плавность для hover-эффектов самого окна */
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        /* Эффект при наведении на все окна */
+        .window-card:hover { 
+            border-color: rgba(0, 212, 255, 0.3); 
         }
 
+        /* Шапка V2 */
         .header-top { font-size: 24px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 5px; text-align: center; }
         .header-sub { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-align: center; }
         .header-sub span { color: var(--accent-color); }
 
+        /* Логотип с плавным увеличением */
         .logo-img {
             width: 150px; height: 150px;
             border-radius: 20px;
@@ -57,44 +77,99 @@
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
             border: 1px solid #333;
             cursor: pointer;
-            transition: 0.3s;
+            /* Плавность для hover */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .logo-img:hover { 
+            transform: scale(1.08) rotate(2deg); 
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
         }
 
         .client-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
 
+        /* Общий стиль кнопок с плавностью */
         .btn {
             display: block; width: 100%; padding: 16px;
             border-radius: 12px; font-weight: 700; text-transform: uppercase;
-            text-decoration: none; text-align: center; transition: 0.3s;
+            text-decoration: none; text-align: center; 
+            transition: all 0.3s ease; /* Плавность для всех свойств */
             cursor: pointer; border: none; font-family: 'Inter', sans-serif;
         }
 
         .btn-zip { background: none; color: white; border: 2px dashed #4b5563; margin-bottom: 15px; }
-        .btn-zip:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .btn-zip:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 212, 255, 0.05); }
 
         .btn-help { background: var(--accent-color); color: var(--dark-bg); }
+        .btn-help:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3); }
+
         .btn-config { background: #1f2937; color: var(--accent-color); border: 1px solid var(--accent-color); }
+        .btn-config:hover { background: #253142; box-shadow: 0 5px 15px rgba(0, 212, 255, 0.1); }
 
-        .feature-item { margin-bottom: 20px; text-align: left; }
-        .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 5px; }
-        .feature-item p { color: var(--text-gray); font-size: 0.9rem; }
+        /* --- СТИЛИЗАЦИЯ И АНИМАЦИЯ ПУНКТОВ "ПОЧЕМУ МЫ" --- */
+        .feature-item { 
+            margin-bottom: 15px; 
+            text-align: left; 
+            padding: 15px; 
+            border-radius: 12px;
+            background: rgba(255,255,255,0.01); /* Почти прозрачный фон */
+            border: 1px solid transparent;
+            /* Самое важное: плавность для hover-эффектов */
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
 
-        .contact-link { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; margin: 10px 0; font-weight: 600; }
-        .contact-link:hover { color: var(--accent-color); }
+        .feature-item:last-child { margin-bottom: 0; }
 
-        /* Админка */
+        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ НА ПУНКТ */
+        .feature-item:hover {
+            transform: translateY(-5px) scale(1.02); /* Приподнимание и легкое увеличение */
+            background: #1c2331; /* Фон становится чуть светлее */
+            border-color: rgba(0, 212, 255, 0.2); /* Появляется слабая голубая рамка */
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15); /* Голубое свечение */
+        }
+
+        .feature-item h3 { 
+            color: var(--accent-color); 
+            font-size: 1.1rem; 
+            margin-bottom: 5px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: color 0.3s ease;
+        }
+
+        /* Легкая пульсация заголовка при наведении на пункт */
+        .feature-item:hover h3 {
+            animation: titlePulse 1.5s infinite ease-in-out;
+        }
+
+        .feature-item p { 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            transition: color 0.3s ease;
+        }
+        
+        .feature-item:hover p {
+            color: white; /* Текст становится белым при наведении */
+        }
+
+        /* --- КОНЕЦ АНИМАЦИЙ ПУНКТОВ --- */
+
+        .contact-link { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; margin: 10px 0; font-weight: 600; transition: color 0.2s; }
+        .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
+
         .admin-modal {
             display: none; position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%); background: #1f2937;
             padding: 30px; border-radius: 20px; border: 2px solid var(--accent-color);
             z-index: 10000; width: 90%; max-width: 350px;
+            animation: fadeInUp 0.4s ease-out forwards;
         }
         .admin-modal input {
             width: 100%; background: #0b111e; border: 1px solid var(--border-color);
             color: white; padding: 12px; margin-bottom: 10px; border-radius: 8px;
         }
 
-        footer { margin-top: 20px; color: #4b5563; font-size: 0.7rem; }
+        footer { margin-top: 20px; color: #4b5563; font-size: 0.7rem; padding-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -110,24 +185,47 @@
 
     <div class="window-card">
         <h2 style="margin-bottom: 15px; text-align: center;">Конфигурации</h2>
-        <p style="color: var(--text-gray); text-align: center; font-size: 0.9rem; margin-bottom: 20px;">Для работы VPN необходим актуальный ключ (VLESS/Reality).</p>
+        <p style="color: var(--text-gray); text-align: center; font-size: 0.9rem; margin-bottom: 20px;">Ключи для доступа к свободному интернету обновляются ежедневно.</p>
         <a href="https://t.me/freeinternet_byMygalaru" class="btn btn-config">Взять конфиг в ТГ</a>
     </div>
 
     <div class="window-card">
-        <h2 style="margin-bottom: 20px; text-align: center;">Почему RTPXRAY?</h2>
+        <h2 style="margin-bottom: 25px; text-align: center;">Почему RTPXRAY?</h2>
+        
         <div class="feature-item">
-            <h3>⚡ Скорость</h3>
-            <p>Прямое подключение к серверам без ограничений пропускной способности.</p>
+            <h3>⚡ Скорость 1 Гбит/с</h3>
+            <p>Используем современные протоколы, которые не режут скорость провайдера.</p>
         </div>
+        
         <div class="feature-item">
-            <h3>🔒 Приватность</h3>
-            <p>Xray Core маскирует ваш трафик под обычный веб-серфинг.</p>
+            <h3>🔒 Reality & VLESS</h3>
+            <p>Самые современные методы шифрования, которые невозможно отследить.</p>
+        </div>
+
+        <div class="feature-item">
+            <h3>🛠️ Обход блокировок</h3>
+            <p>Умная фрагментация пакетов позволяет заходить на любые RESOURCES.</p>
+        </div>
+
+        <div class="feature-item">
+            <h3>🛡️ Без рекламы</h3>
+            <p>Чистый клиент без встроенной рекламы, майнеров и скрытых подписок.</p>
+        </div>
+
+        <div class="feature-item">
+            <h3>📱 Кроссплатформенность</h3>
+            <p>Наши конфигурации работают на Windows, Android, iOS и macOS.</p>
+        </div>
+
+        <div class="feature-item">
+            <h3>🔄 Стабильность 24/7</h3>
+            <p>Автоматическое переподключение и поиск рабочих серверов.</p>
         </div>
     </div>
 
     <div class="window-card">
         <h2 style="margin-bottom: 15px; text-align: center;">Поддержка</h2>
+        <p style="color: var(--text-gray); text-align: center; font-size: 0.8rem; margin-bottom: 15px;">Помоги проекту выжить и стать лучше</p>
         <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn btn-help">ЗАДОНАТИТЬ</a>
     </div>
 
@@ -146,10 +244,20 @@
     <footer>&copy; 2026 RTP VPN | Powered by Xray Core</footer>
 
     <script>
+        // Имитация сканирования
         function startScan() {
-            alert('Скоро будет доступно');
+            const zipBtn = document.querySelector('.btn-zip');
+            const originalText = zipBtn.innerText;
+            zipBtn.innerText = 'Проверка...';
+            zipBtn.style.animation = 'fadeInUp 0.3s infinite ease-in-out';
+            setTimeout(() => {
+                alert('Сборка ZIP в процессе. Ожидайте обновления.');
+                zipBtn.innerText = originalText;
+                zipBtn.style.animation = 'none';
+            }, 2500);
         }
 
+        // Админка
         let clicks = 0;
         document.getElementById('logoBtn').addEventListener('click', () => {
             clicks++;
