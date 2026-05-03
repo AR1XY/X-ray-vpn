@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTPXRAY — Свобода в каждом пакете</title>
+    <title>RTPXRAY CLIENT</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent-color: #00d4ff; 
-            --dark-bg: #030712;    
-            --card-bg: rgba(17, 24, 39, 0.7);    
-            --border-color: rgba(42, 49, 62, 0.5);
+            --dark-bg: #0b111e;    
+            --card-bg: #111827;    
+            --border-color: #2a313e;
+            --text-gray: #9ca3af;
+        }
+
+        /* Анимация появления снизу вверх */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,244 +26,123 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
             color: white;
-            overflow-x: hidden;
-            /* Фон как на скрине */
-            background-image: radial-gradient(circle at 50% 50%, #111827 0%, #030712 100%);
-        }
-
-        /* Шапка сайта */
-        header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 20px 10%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: #9ca3af; text-decoration: none; font-size: 14px; transition: 0.3s; }
-        .nav-links a:hover { color: white; }
-
-        .version-badge {
-            background: rgba(255,255,255,0.1);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Главный экран */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            padding: 20px 15px;
             min-height: 100vh;
-            padding: 0 10%;
-            padding-top: 80px;
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
-        .hero-content { flex: 1; max-width: 600px; }
-        .hero-content h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
-        .hero-content h1 span { color: var(--accent-color); }
-        .hero-content p { color: #9ca3af; font-size: 18px; margin-bottom: 40px; line-height: 1.6; }
-
-        .hero-btns { display: flex; gap: 20px; }
-        
-        /* Изображение телефона */
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            position: relative;
-        }
-        .phone-mockup {
-            width: 320px;
-            border-radius: 40px;
-            box-shadow: 0 0 100px rgba(0, 212, 255, 0.2);
-            border: 8px solid #1f2937;
-            cursor: pointer;
-            transition: 0.5s;
-        }
-        .phone-mockup:hover { transform: translateY(-20px) scale(1.02); }
-
-        /* Стили кнопок */
-        .btn-primary {
-            background: var(--accent-color);
-            color: black;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 800;
-            text-decoration: none;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-outline {
-            border: 1px solid var(--border-color);
-            background: rgba(255,255,255,0.05);
-            padding: 16px 32px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .btn-primary:hover { transform: scale(1.05); }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); }
-
-        /* Секции (Остальной твой контент ниже) */
-        .container { padding: 80px 10%; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-size: 32px; margin-bottom: 40px; text-align: center; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
+        /* Карточки-окна */
         .window-card {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 30px;
+            width: 100%;
+            max-width: 400px;
             border-radius: 24px;
-            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Твои спец. стили для отзывов и благодарностей */
-        .review-msg { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent-color); }
-        .thanks-list { display: flex; flex-wrap: wrap; gap: 8px; }
-        .thanks-user { background: #1f2937; padding: 6px 12px; border-radius: 20px; font-size: 14px; border: 1px solid var(--border-color); }
+        /* Задержка появления для каждого окна */
+        .window-card:nth-child(1) { animation-delay: 0.1s; }
+        .window-card:nth-child(2) { animation-delay: 0.2s; }
+        .window-card:nth-child(3) { animation-delay: 0.3s; }
+        .window-card:nth-child(4) { animation-delay: 0.4s; }
+        .window-card:nth-child(5) { animation-delay: 0.5s; }
+        .window-card:nth-child(6) { animation-delay: 0.6s; }
 
-        /* Админка */
-        .admin-modal {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            background: var(--card-bg); backdrop-filter: blur(20px); padding: 30px;
-            border-radius: 24px; border: 1px solid var(--accent-color); z-index: 1000; width: 350px;
+        .logo-img {
+            width: 150px; height: 150px; border-radius: 24px; margin: 0 auto 20px; display: block;
+            border: 1px solid #333;
         }
-        .admin-modal input { width: 100%; background: #0b111e; border: 1px solid var(--border-color); color: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; }
 
-        @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
-            .hero-image { justify-content: center; margin-top: 50px; }
-            .hero-content h1 { font-size: 40px; }
-            header { padding: 15px 5%; }
-            .nav-links { display: none; }
+        .btn {
+            display: block; width: 100%; padding: 16px; border-radius: 14px; font-weight: 700;
+            text-transform: uppercase; text-decoration: none; text-align: center; border: none;
+            transition: 0.3s; cursor: pointer; font-family: 'Inter', sans-serif;
+        }
+
+        .btn-zip { background: none; color: white; border: 2px dashed #4b5563; margin-bottom: 12px; }
+        .btn-blue { background: var(--accent-color); color: black; }
+        .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3); }
+
+        /* Отзывы */
+        .review-box {
+            background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; 
+            margin-bottom: 10px; border-left: 4px solid var(--accent-color);
+        }
+
+        /* Благодарности */
+        .thanks-tag {
+            display: inline-block; background: #1f2937; padding: 5px 10px; 
+            border-radius: 10px; margin: 3px; font-size: 13px; border: 1px solid var(--border-color);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div style="font-weight: 800; color: var(--accent-color); font-size: 20px;">RTPXRAY</div>
-        <nav class="nav-links">
-            <a href="#">Главная</a>
-            <a href="#features">О проекте</a>
-            <a href="#reviews">Отзывы</a>
-            <a href="#support">Поддержка</a>
-        </nav>
-        <div class="version-badge">1.2.0-STABLE</div>
-    </header>
+    <div class="window-card" style="text-align: center;">
+        <div style="color: #4b5563; font-weight: 800; letter-spacing: 2px;">XRAY VPN</div>
+        <div style="font-size: 20px; font-weight: 800; margin-bottom: 15px;">RTP<span style="color: var(--accent-color);">XRAY</span></div>
+        <img src="IMG_20260502_193629_176.png" class="logo-img" alt="Logo">
+        <h2 style="margin-bottom: 20px;">RTPXRAY CLIENT</h2>
+        <button class="btn btn-zip" id="zipBtn" onclick="startScan()">УСТАНОВИТЬ .ZIP</button>
+        <a href="https://t.me/rtpvpnAdmin" class="btn btn-blue">ПОЛУЧИТЬ ПОМОЩЬ</a>
+    </div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Свобода в <br>каждом <span>пакете данных.</span></h1>
-            <p>RTPXRAY — это высокотехнологичный клиент для Android, объединяющий мощь Xray Core и простоту интерфейса. Обход блокировок еще никогда не был таким элегантным.</p>
-            <div class="hero-btns">
-                <button class="btn-primary" id="zipBtn" onclick="startScan()">ПОЛУЧИТЬ APK</button>
-                <a href="http://t.me/bypassrtp" class="btn-outline">КАНАЛ В TG</a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="IMG_20260502_193629_176.png" class="phone-mockup" id="logoBtn" alt="Interface">
-        </div>
-    </section>
+    <div class="window-card">
+        <h3 style="margin-bottom: 10px;">🛡️ Приватность</h3>
+        <p style="color: var(--text-gray); font-size: 14px;">Xray Core маскирует ваш трафик под обычный веб-серфинг.</p>
+    </div>
 
-    <div class="container" id="features">
-        <h2 class="section-title">Почему RTPXRAY?</h2>
-        <div class="grid">
-            <div class="window-card"><h3>⚡ Скорость 1 Гбит/с</h3><p>Прямое подключение к серверам без ограничений пропускной способности.</p></div>
-            <div class="window-card"><h3>🔒 Приватность</h3><p>Xray Core маскирует ваш трафик под обычный веб-серфинг.</p></div>
-            <div class="window-card"><h3>🛠️ Стабильность</h3><p>Автоматическое переподключение и работа 24/7.</p></div>
+    <div class="window-card">
+        <h3 style="margin-bottom: 10px;">🛠️ Стабильность</h3>
+        <p style="color: var(--text-gray); font-size: 14px;">Автоматическое переподключение и работа 24/7.</p>
+    </div>
+
+    <div class="window-card">
+        <h3 style="margin-bottom: 15px;">Отзывы</h3>
+        <div class="review-box"><strong>AR1XY</strong><br>Очень хороший впн, стабильный.</div>
+        <div class="review-box"><strong>Xgkare</strong><br>Как тест норм.</div>
+        <div class="review-box"><strong>Timur</strong><br>Приложение топ, интерфейс интуитивно понятный.</div>
+    </div>
+
+    <div class="window-card">
+        <h3 style="margin-bottom: 10px; text-align: center;">Благодарность</h3>
+        <div style="text-align: center;">
+            <span class="thanks-tag">@odwob</span>
+            <span class="thanks-tag">@vxstream</span>
+            <span class="thanks-tag">@Xgkare</span>
+            <span class="thanks-tag">@dequar</span>
+            <span class="thanks-tag">@vansFenix</span>
         </div>
     </div>
 
-    <div class="container" id="reviews">
-        <div class="grid">
-            <div class="window-card">
-                <h2 style="margin-bottom: 20px;">Отзывы</h2>
-                <div class="review-msg"><strong>AR1XY</strong><br>Очень хороший впн, стабильный.</div>
-                <div class="review-msg"><strong>Xgkare</strong><br>Как тест норм.</div>
-                <div class="review-msg"><strong>Timur</strong><br>Интерфейс интуитивно понятный.</div>
-            </div>
-            <div class="window-card" id="support">
-                <h2 style="margin-bottom: 20px;">Поддержка проекта</h2>
-                <p style="margin-bottom: 20px;">Помоги проекту выжить и стать лучше</p>
-                <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn-primary" style="display: block; text-align: center;">ЗАДОНАТИТЬ</a>
-                <div style="margin-top: 20px;">
-                    <a href="https://t.me/rtpvpnAdmin" style="color: var(--accent-color); text-decoration: none;">👨‍💻 Связь с разработчиком</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="window-card">
-            <h2 style="margin-bottom: 15px; text-align: center;">Огромная благодарность</h2>
-            <div class="thanks-list" style="justify-content: center;">
-                <span class="thanks-user">@odwob</span>
-                <span class="thanks-user">@vxstream</span>
-                <span class="thanks-user">@Xgkare</span>
-                <span class="thanks-user">@dequar</span>
-                <span class="thanks-user">@vansFenix</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="adminPanel" class="admin-modal">
-        <h2 style="margin-bottom:15px; color: var(--accent-color);">Admin Panel</h2>
-        <input type="text" id="adminPass" placeholder="Пароль">
-        <button class="btn-primary" style="width: 100%;" onclick="checkPass()">Войти</button>
-        <button class="btn-outline" style="width: 100%; margin-top: 10px;" onclick="closeAdmin()">Закрыть</button>
+    <div class="window-card" style="text-align: center;">
+        <h3 style="margin-bottom: 15px;">Поддержка</h3>
+        <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn btn-blue">ЗАДОНАТИТЬ</a>
     </div>
 
     <script>
-        // Твоя логика проверки и перехода
         function startScan() {
             const btn = document.getElementById('zipBtn');
             btn.innerText = 'Проверка...';
             setTimeout(() => {
                 btn.innerText = 'Безопасно ✓';
-                btn.style.background = '#10b981';
+                btn.style.color = '#10b981';
+                btn.style.borderColor = '#10b981';
                 setTimeout(() => {
                     window.open('https://t.me/disjdndkd/16', '_blank');
-                    btn.innerText = 'ПОЛУЧИТЬ APK';
-                    btn.style.background = '#00d4ff';
+                    btn.innerText = 'УСТАНОВИТЬ .ZIP';
+                    btn.style.color = 'white';
+                    btn.style.borderColor = '#4b5563';
                 }, 1000);
             }, 2000);
         }
-
-        // Вход в админку по 5 кликам на картинку телефона
-        let clicks = 0;
-        document.getElementById('logoBtn').addEventListener('click', () => {
-            clicks++;
-            if (clicks === 5) {
-                document.getElementById('adminPanel').style.display = 'block';
-                clicks = 0;
-            }
-        });
-
-        function checkPass() {
-            if (document.getElementById('adminPass').value === "123") {
-                alert("Доступ разрешен!");
-                closeAdmin();
-            } else { alert("Неверно!"); }
-        }
-
-        function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
     </script>
 </body>
 </html>
