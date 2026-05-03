@@ -14,10 +14,16 @@
             --text-gray: #9ca3af;
         }
 
-        /* Анимация появления снизу вверх */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Анимации при заходе */
+        @keyframes windowFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes titlePulse {
+            0% { text-shadow: 0 0 5px rgba(0, 212, 255, 0); }
+            50% { text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+            100% { text-shadow: 0 0 5px rgba(0, 212, 255, 0); }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,14 +32,14 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
             color: white;
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 15px;
-            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* Карточки-окна */
         .window-card {
             background: var(--card-bg);
             width: 100%;
@@ -41,107 +47,195 @@
             border-radius: 24px;
             border: 1px solid var(--border-color);
             padding: 25px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
+            animation: windowFadeIn 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Задержка появления для каждого окна */
+        /* Каскадное появление */
         .window-card:nth-child(1) { animation-delay: 0.1s; }
         .window-card:nth-child(2) { animation-delay: 0.2s; }
         .window-card:nth-child(3) { animation-delay: 0.3s; }
         .window-card:nth-child(4) { animation-delay: 0.4s; }
         .window-card:nth-child(5) { animation-delay: 0.5s; }
         .window-card:nth-child(6) { animation-delay: 0.6s; }
+        .window-card:nth-child(7) { animation-delay: 0.7s; }
+        
+        .window-card:hover { border-color: rgba(0, 212, 255, 0.3); }
+
+        .header-top { font-size: 24px; font-weight: 800; color: #4b5563; text-transform: uppercase; margin-bottom: 5px; text-align: center; }
+        .header-sub { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-align: center; }
+        .header-sub span { color: var(--accent-color); }
 
         .logo-img {
-            width: 150px; height: 150px; border-radius: 24px; margin: 0 auto 20px; display: block;
-            border: 1px solid #333;
+            width: 150px; height: 150px; border-radius: 20px; margin: 0 auto 20px; display: block;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); border: 1px solid #333; cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .logo-img:hover { transform: scale(1.08) rotate(2deg); box-shadow: 0 0 30px rgba(0, 212, 255, 0.4); }
+
+        .client-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; text-align: center; }
 
         .btn {
-            display: block; width: 100%; padding: 16px; border-radius: 14px; font-weight: 700;
-            text-transform: uppercase; text-decoration: none; text-align: center; border: none;
-            transition: 0.3s; cursor: pointer; font-family: 'Inter', sans-serif;
+            display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 700;
+            text-transform: uppercase; text-decoration: none; text-align: center; 
+            transition: all 0.3s ease; cursor: pointer; border: none; font-family: 'Inter', sans-serif;
         }
 
-        .btn-zip { background: none; color: white; border: 2px dashed #4b5563; margin-bottom: 12px; }
-        .btn-blue { background: var(--accent-color); color: black; }
-        .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3); }
+        .btn-zip { background: none; color: white; border: 2px dashed #4b5563; margin-bottom: 15px; }
+        .btn-zip:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 212, 255, 0.05); }
 
-        /* Отзывы */
-        .review-box {
-            background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; 
-            margin-bottom: 10px; border-left: 4px solid var(--accent-color);
-        }
+        .btn-help { background: var(--accent-color); color: var(--dark-bg); }
+        .btn-help:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3); }
 
-        /* Благодарности */
-        .thanks-tag {
-            display: inline-block; background: #1f2937; padding: 5px 10px; 
-            border-radius: 10px; margin: 3px; font-size: 13px; border: 1px solid var(--border-color);
+        .btn-config { background: #1f2937; color: var(--accent-color); border: 1px solid var(--accent-color); }
+
+        .feature-item { 
+            margin-bottom: 15px; text-align: left; padding: 15px; border-radius: 12px;
+            background: rgba(255,255,255,0.01); border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+        .feature-item:hover {
+            transform: translateY(-5px) scale(1.02); background: #1c2331;
+            border-color: rgba(0, 212, 255, 0.2); box-shadow: 0 10px 20px rgba(0, 212, 255, 0.15);
+        }
+        .feature-item h3 { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        .feature-item:hover h3 { animation: titlePulse 1.5s infinite ease-in-out; }
+
+        .review-msg {
+            background: rgba(255, 255, 255, 0.03); padding: 15px; border-radius: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent-color);
+        }
+        .review-user { font-weight: 800; color: var(--accent-color); font-size: 0.9rem; margin-bottom: 4px; display: block; }
+        .review-text { color: white; font-size: 0.9rem; line-height: 1.4; }
+
+        .thanks-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; }
+        .thanks-user { 
+            background: #1f2937; color: white; padding: 6px 12px; border-radius: 20px; 
+            font-size: 0.85rem; font-weight: 600; border: 1px solid var(--border-color);
+            transition: 0.3s; cursor: default;
+        }
+        .thanks-user:hover { border-color: var(--accent-color); color: var(--accent-color); transform: scale(1.1); }
+
+        .contact-link { display: flex; align-items: center; gap: 10px; color: white; text-decoration: none; margin: 10px 0; font-weight: 600; transition: color 0.2s; }
+        .contact-link:hover { color: var(--accent-color); padding-left: 5px; }
+
+        .admin-modal {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: rgba(31, 41, 55, 0.98); backdrop-filter: blur(5px); padding: 30px;
+            border-radius: 20px; border: 2px solid var(--accent-color); z-index: 10000; 
+            width: 90%; max-width: 350px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .admin-modal input { width: 100%; background: #0b111e; border: 1px solid var(--border-color); color: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; }
+
+        footer { margin-top: 20px; color: #4b5563; font-size: 0.7rem; padding-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="window-card" style="text-align: center;">
-        <div style="color: #4b5563; font-weight: 800; letter-spacing: 2px;">XRAY VPN</div>
-        <div style="font-size: 20px; font-weight: 800; margin-bottom: 15px;">RTP<span style="color: var(--accent-color);">XRAY</span></div>
-        <img src="IMG_20260502_193629_176.png" class="logo-img" alt="Logo">
-        <h2 style="margin-bottom: 20px;">RTPXRAY CLIENT</h2>
-        <button class="btn btn-zip" id="zipBtn" onclick="startScan()">УСТАНОВИТЬ .ZIP</button>
-        <a href="https://t.me/rtpvpnAdmin" class="btn btn-blue">ПОЛУЧИТЬ ПОМОЩЬ</a>
+    <div class="window-card">
+        <div class="header-top">XRAY VPN</div>
+        <div class="header-sub">RTP<span>XRAY</span></div>
+        <img src="IMG_20260502_193629_176.png" class="logo-img" id="logoBtn" alt="Logo">
+        <h1 class="client-title">RTPXRAY CLIENT</h1>
+        <button class="btn btn-zip" id="zipBtn" onclick="startScan()">Установить .ZIP</button>
+        <a href="https://t.me/rtpvpnAdmin" class="btn btn-help">Получить помощь</a>
     </div>
 
     <div class="window-card">
-        <h3 style="margin-bottom: 10px;">🛡️ Приватность</h3>
-        <p style="color: var(--text-gray); font-size: 14px;">Xray Core маскирует ваш трафик под обычный веб-серфинг.</p>
+        <h2 style="margin-bottom: 15px; text-align: center;">Конфигурации</h2>
+        <p style="color: var(--text-gray); text-align: center; font-size: 0.9rem; margin-bottom: 20px;">Ключи для доступа к свободному интернету обновляются ежедневно.</p>
+        <a href="https://t.me/freeinternet_byMygalaru" class="btn btn-config">Взять конфиг в ТГ</a>
     </div>
 
     <div class="window-card">
-        <h3 style="margin-bottom: 10px;">🛠️ Стабильность</h3>
-        <p style="color: var(--text-gray); font-size: 14px;">Автоматическое переподключение и работа 24/7.</p>
+        <h2 style="margin-bottom: 25px; text-align: center;">Почему RTPXRAY?</h2>
+        <div class="feature-item"><h3>⚡ Скорость 1 Гбит/с</h3><p>Используем современные протоколы, которые не режут скорость провайдера.</p></div>
+        <div class="feature-item"><h3>🔒 Reality & VLESS</h3><p>Самые современные методы шифрования, которые невозможно отследить.</p></div>
+        <div class="feature-item"><h3>🛠️ Обход блокировок</h3><p>Умная фрагментация пакетов позволяет заходить на любые Resources.</p></div>
+        <div class="feature-item"><h3>🛡️ Без рекламы</h3><p>Чистый клиент без встроенной рекламы, майнеров и скрытых подписок.</p></div>
+        <div class="feature-item"><h3>📱 Кроссплатформенность</h3><p>Наши конфигурации работают на Windows, Android, iOS и macOS.</p></div>
+        <div class="feature-item"><h3>🔄 Стабильность 24/7</h3><p>Автоматическое переподключение и поиск рабочих серверов.</p></div>
     </div>
 
     <div class="window-card">
-        <h3 style="margin-bottom: 15px;">Отзывы</h3>
-        <div class="review-box"><strong>AR1XY</strong><br>Очень хороший впн, стабильный.</div>
-        <div class="review-box"><strong>Xgkare</strong><br>Как тест норм.</div>
-        <div class="review-box"><strong>Timur</strong><br>Приложение топ, интерфейс интуитивно понятный.</div>
+        <h2 style="margin-bottom: 20px; text-align: center;">Отзывы</h2>
+        <div class="review-msg"><span class="review-user">AR1XY</span><p class="review-text">Очень хороший впн,стабильный пока что лучше чем хапп</p></div>
+        <div class="review-msg"><span class="review-user">Xgkare</span><p class="review-text">как тест норм</p></div>
+        <div class="review-msg"><span class="review-user">Timur</span><p class="review-text">Приложение топ, интерфейс интуитивно понятный, имеются куча настроек</p></div>
     </div>
 
     <div class="window-card">
-        <h3 style="margin-bottom: 10px; text-align: center;">Благодарность</h3>
-        <div style="text-align: center;">
-            <span class="thanks-tag">@odwob</span>
-            <span class="thanks-tag">@vxstream</span>
-            <span class="thanks-tag">@Xgkare</span>
-            <span class="thanks-tag">@dequar</span>
-            <span class="thanks-tag">@vansFenix</span>
+        <h2 style="margin-bottom: 15px; text-align: center;">Огромная благодарность</h2>
+        <div class="thanks-list">
+            <span class="thanks-user">@odwob</span>
+            <span class="thanks-user">@vxstream</span>
+            <span class="thanks-user">@Xgkare</span>
+            <span class="thanks-user">@dequar</span>
+            <span class="thanks-user">@vansFenix</span>
         </div>
     </div>
 
-    <div class="window-card" style="text-align: center;">
-        <h3 style="margin-bottom: 15px;">Поддержка</h3>
-        <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn btn-blue">ЗАДОНАТИТЬ</a>
+    <div class="window-card">
+        <h2 style="margin-bottom: 15px; text-align: center;">Поддержка</h2>
+        <a href="https://www.donationalerts.com/r/vadimtgvsd" class="btn btn-help">ЗАДОНАТИТЬ</a>
     </div>
+
+    <div class="window-card">
+        <a href="http://t.me/bypassrtp" class="contact-link">📢 Наш Telegram канал</a>
+        <a href="https://t.me/rtpvpnAdmin" class="contact-link">👨‍💻 Разработчик: @rtpvpnAdmin</a>
+    </div>
+
+    <div id="adminPanel" class="admin-modal">
+        <h2 style="margin-bottom:15px; color: var(--accent-color);">Admin Panel</h2>
+        <input type="text" id="adminPass" placeholder="Пароль">
+        <button class="btn btn-help" onclick="checkPass()">Войти</button>
+        <button class="btn btn-zip" style="margin-top:10px; border-style:solid;" onclick="closeAdmin()">Закрыть</button>
+    </div>
+
+    <footer>&copy; 2026 RTP VPN | Powered by Xray Core</footer>
 
     <script>
         function startScan() {
             const btn = document.getElementById('zipBtn');
+            const originalText = btn.innerText;
             btn.innerText = 'Проверка...';
+            btn.style.borderColor = '#00d4ff';
             setTimeout(() => {
                 btn.innerText = 'Безопасно ✓';
                 btn.style.color = '#10b981';
                 btn.style.borderColor = '#10b981';
                 setTimeout(() => {
+                    // ОБНОВЛЕННАЯ ССЫЛКА ЗДЕСЬ:
                     window.open('https://t.me/disjdndkd/16', '_blank');
-                    btn.innerText = 'УСТАНОВИТЬ .ZIP';
+                    btn.innerText = originalText;
                     btn.style.color = 'white';
                     btn.style.borderColor = '#4b5563';
                 }, 1000);
             }, 2000);
+        }
+
+        let clicks = 0;
+        document.getElementById('logoBtn').addEventListener('click', () => {
+            clicks++;
+            if (clicks === 5) {
+                document.getElementById('adminPanel').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                clicks = 0;
+            }
+        });
+
+        function checkPass() {
+            if (document.getElementById('adminPass').value === "123") {
+                alert("Доступ разрешен!");
+                closeAdmin();
+            } else { alert("Неверно!"); }
+        }
+
+        function closeAdmin() { 
+            document.getElementById('adminPanel').style.display = 'none'; 
+            document.body.style.overflow = 'auto';
         }
     </script>
 </body>
